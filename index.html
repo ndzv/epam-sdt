@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>EPAM School of Digital Technologies</title>
+<link rel="icon" href="assets/img/brand/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/img/brand/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap">
@@ -68,6 +70,8 @@ img { max-width: 100%; display: block; }
 .logo { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--navy); }
 .logo-mark { width: 46px; height: 46px; background: var(--navy); color: #fff; display: grid; place-items: center; font: 800 1rem var(--font-head); letter-spacing: .04em; position: relative; }
 .logo-mark::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: var(--red); }
+.logo-img { display: block; height: 56px; width: auto; }
+.ftr .logo-img { height: 72px; }
 .logo-txt { font: 700 .95rem/1.15 var(--font-head); }
 .logo-txt small { display: block; font-weight: 500; font-size: .72rem; color: var(--muted); letter-spacing: .02em; }
 .nav { display: flex; gap: 26px; align-items: center; }
@@ -87,9 +91,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
 /* Hero */
 .hero { background: var(--navy); color: var(--on-dark); position: relative; overflow: hidden; }
-.hero::before { content: ""; position: absolute; inset: 0; background:
+.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: 1; background:
   radial-gradient(ellipse at 85% 20%, rgba(208,24,34,.28), transparent 55%),
-  linear-gradient(120deg, var(--navy) 40%, var(--navy-2)); }
+  linear-gradient(120deg, rgba(0,37,136,.92) 35%, rgba(0,28,102,.7)); }
+.hero > .wrap, .hero-facts { z-index: 2; }
+@media (prefers-reduced-motion: reduce) { .hero-video { display: none; } }
 .hero .wrap { position: relative; display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; padding-block: clamp(56px, 9vw, 110px); }
 .hero h1 { font-size: clamp(2.1rem, 5vw, 3.6rem); font-weight: 800; margin: 18px 0 20px; }
 .hero .eyebrow { color: #fff; opacity: .85; }
@@ -241,8 +248,7 @@ input:focus, select:focus { outline: none; border-color: var(--navy); box-shadow
 <header class="hdr">
   <div class="wrap">
     <a class="logo" href="#top" aria-label="EPAM School of Digital Technologies, American University Kyiv">
-      <span class="logo-mark">AUK</span>
-      <span class="logo-txt">EPAM School of<br>Digital Technologies<small>American University Kyiv</small></span>
+      <img class="logo-img" src="assets/img/brand/logo.png" alt="EPAM School of Digital Technologies, American University Kyiv" width="2100" height="1128">
     </a>
     <nav class="nav" id="nav" aria-label="Головне меню">
       <a href="#programs">Програми</a>
@@ -261,6 +267,7 @@ input:focus, select:focus { outline: none; border-color: var(--navy); box-shadow
 <div class="wrap crumbs" id="top"><a href="https://auk.edu.ua/ua/">Головна</a><span>›</span><a href="https://auk.edu.ua/ua/schools/">Факультети АЮК</a><span>›</span>EPAM School of Digital Technologies</div>
 
 <section class="hero">
+  <video class="hero-video" src="assets/video/hero.mp4" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
   <div class="wrap">
     <div>
       <p class="eyebrow">EPAM School of Digital Technologies</p>
@@ -360,7 +367,7 @@ input:focus, select:focus { outline: none; border-color: var(--navy); box-shadow
     </div>
     <div class="programs">
       <a class="card" href="https://sdt.semanticidea.com/software-engineering">
-        <div class="card-img"><span class="ph">MSE</span><img loading="lazy" src="https://sdt.semanticidea.com/static/content/media/mse.webp" alt="" onerror="this.remove()"></div>
+        <div class="card-img"><span class="ph">MSE</span><img loading="lazy" src="assets/img/programs/mse.webp" alt="" onerror="this.remove()"></div>
         <div class="card-body">
           <div class="tagrow"><span class="tag tag--red">Магістратура</span><span class="tag">Старт: осінь 2026</span></div>
           <h3>Master of Software Engineering – AI and Software Architecture</h3>
@@ -368,7 +375,7 @@ input:focus, select:focus { outline: none; border-color: var(--navy); box-shadow
         </div>
       </a>
       <a class="card" href="https://sdt.semanticidea.com/bachelor-software-engineering-and-ai">
-        <div class="card-img"><span class="ph">SE&amp;AI</span><img loading="lazy" src="https://sdt.semanticidea.com/static/content/media/seai.webp" alt="" onerror="this.remove()"></div>
+        <div class="card-img"><span class="ph">SE&amp;AI</span><img loading="lazy" src="assets/img/programs/seai.webp" alt="" onerror="this.remove()"></div>
         <div class="card-body">
           <div class="tagrow"><span class="tag">Бакалаврат</span><span class="tag">Старт: осінь 2026</span></div>
           <h3>Бакалавр Software Engineering and AI</h3>
@@ -376,7 +383,7 @@ input:focus, select:focus { outline: none; border-color: var(--navy); box-shadow
         </div>
       </a>
       <a class="card" href="https://sdt.semanticidea.com/bachelor-digital-experience-design-and-ai">
-        <div class="card-img"><span class="ph">XD&amp;AI</span><img loading="lazy" src="https://sdt.semanticidea.com/static/content/media/xdai.webp" alt="" onerror="this.remove()"></div>
+        <div class="card-img"><span class="ph">XD&amp;AI</span><img loading="lazy" src="assets/img/programs/xdai.webp" alt="" onerror="this.remove()"></div>
         <div class="card-body">
           <div class="tagrow"><span class="tag">Бакалаврат</span><span class="tag">Старт: осінь 2026</span></div>
           <h3>Бакалавр Digital Experience Design &amp; AI</h3>
@@ -384,7 +391,7 @@ input:focus, select:focus { outline: none; border-color: var(--navy); box-shadow
         </div>
       </a>
       <a class="card" href="https://sdt.semanticidea.com/bachelor-data-science-and-ai">
-        <div class="card-img"><span class="ph">DS&amp;AI</span><img loading="lazy" src="https://sdt.semanticidea.com/static/content/media/dsai.webp" alt="" onerror="this.remove()"></div>
+        <div class="card-img"><span class="ph">DS&amp;AI</span><img loading="lazy" src="assets/img/programs/dsai.webp" alt="" onerror="this.remove()"></div>
         <div class="card-body">
           <div class="tagrow"><span class="tag">Бакалаврат</span><span class="tag">Старт: осінь 2026</span></div>
           <h3>Бакалавр Data Science &amp; AI</h3>
@@ -392,7 +399,7 @@ input:focus, select:focus { outline: none; border-color: var(--navy); box-shadow
         </div>
       </a>
       <a class="card" href="https://sdt.semanticidea.com/bachelor-cybersecurity">
-        <div class="card-img"><span class="ph">CYBER</span><img loading="lazy" src="https://sdt.semanticidea.com/static/content/media/cyber.webp" alt="" onerror="this.remove()"></div>
+        <div class="card-img"><span class="ph">CYBER</span><img loading="lazy" src="assets/img/programs/cyber.webp" alt="" onerror="this.remove()"></div>
         <div class="card-body">
           <div class="tagrow"><span class="tag">Бакалаврат</span><span class="tag">Старт: осінь 2026</span></div>
           <h3>Бакалавр Cybersecurity</h3>
@@ -431,10 +438,10 @@ input:focus, select:focus { outline: none; border-color: var(--navy); box-shadow
       <h2>Викладачі</h2>
     </div>
     <div class="people">
-      <a class="person" href="https://sdt.semanticidea.com/sergiy-tytenko"><div class="person-img"><span class="ph">СТ</span><img loading="lazy" src="https://sdt.semanticidea.com/static/content/media/st-square.png" alt="" onerror="this.remove()"></div><b>Сергій Титенко</b><span>Декан EPAM School of Digital Technologies, проф., к.т.н.</span></a>
-      <a class="person" href="https://sdt.semanticidea.com/oleksandra-antoniouk"><div class="person-img"><span class="ph">ОА</span><img loading="lazy" src="https://sdt.semanticidea.com/static/content/media/1745_830_antonyuk_400x400_1_900x800_0.webp" alt="" onerror="this.remove()"></div><b>Олександра Антонюк</b><span>Заступник декана, проф., д-р фіз.-мат. наук</span></a>
-      <a class="person" href="https://sdt.semanticidea.com/viktor-putrenko"><div class="person-img"><span class="ph">ВП</span><img loading="lazy" src="https://sdt.semanticidea.com/static/content/media/1723_831_putrenko_450x450_1_900x800_0.webp" alt="" onerror="this.remove()"></div><b>Віктор Путренко</b><span>Професор, д-р техн. наук</span></a>
-      <a class="person" href="https://sdt.semanticidea.com/oleksandr-yosypenko"><div class="person-img"><span class="ph">ОЙ</span><img loading="lazy" src="https://auk.edu.ua/uploads/symlink/3000_4000/3418_oleksandryusepenkos_900x800_0.webp" alt="" onerror="this.remove()"></div><b>Олександр Йосипенко</b><span>Викладач</span></a>
+      <a class="person" href="https://sdt.semanticidea.com/sergiy-tytenko"><div class="person-img"><span class="ph">СТ</span><img loading="lazy" src="assets/img/faculty/tytenko.png" alt="" onerror="this.remove()"></div><b>Сергій Титенко</b><span>Декан EPAM School of Digital Technologies, проф., к.т.н.</span></a>
+      <a class="person" href="https://sdt.semanticidea.com/oleksandra-antoniouk"><div class="person-img"><span class="ph">ОА</span><img loading="lazy" src="assets/img/faculty/antoniouk.webp" alt="" onerror="this.remove()"></div><b>Олександра Антонюк</b><span>Заступник декана, проф., д-р фіз.-мат. наук</span></a>
+      <a class="person" href="https://sdt.semanticidea.com/viktor-putrenko"><div class="person-img"><span class="ph">ВП</span><img loading="lazy" src="assets/img/faculty/putrenko.webp" alt="" onerror="this.remove()"></div><b>Віктор Путренко</b><span>Професор, д-р техн. наук</span></a>
+      <a class="person" href="https://sdt.semanticidea.com/oleksandr-yosypenko"><div class="person-img"><span class="ph">ОЙ</span><img loading="lazy" src="assets/img/faculty/yosypenko.webp" alt="" onerror="this.remove()"></div><b>Олександр Йосипенко</b><span>Викладач</span></a>
     </div>
     <p style="margin-top:36px"><a class="more" href="https://sdt.semanticidea.com/faculty">Дивитися всіх викладачів →</a></p>
   </div>
@@ -470,15 +477,15 @@ input:focus, select:focus { outline: none; border-color: var(--navy); box-shadow
     </div>
     <div class="news">
       <a class="card" href="https://sdt.semanticidea.com/tytenko-asu-agentic-ai-student-experience-2026">
-        <div class="card-img"><span class="ph">ASU</span><img loading="lazy" src="https://auk.edu.ua/uploads/symlink/4000_5000/4046_1782727312407.jpg" alt="" onerror="this.remove()"></div>
+        <div class="card-img"><span class="ph">ASU</span><img loading="lazy" src="assets/img/news/asu-agentic-ai.jpg" alt="" onerror="this.remove()"></div>
         <div class="card-body"><span class="tagrow"><span class="tag">#AUK Faculty</span></span><time class="date" datetime="2026-07-06">06 липня 2026</time><h3>Доповідь Сергія Титенка прийнято на Agentic AI and the Student Experience 2026 в Arizona State University</h3></div>
       </a>
       <a class="card" href="https://sdt.semanticidea.com/software-engineering-in-the-age-of-ai-2026">
-        <div class="card-img"><span class="ph">SE + AI</span><img loading="lazy" src="https://auk.edu.ua/uploads/symlink/4000_5000/4045_1782303515896.jpg" alt="" onerror="this.remove()"></div>
+        <div class="card-img"><span class="ph">SE + AI</span><img loading="lazy" src="assets/img/news/se-ai-2026.jpg" alt="" onerror="this.remove()"></div>
         <div class="card-body"><span class="tagrow"><span class="tag">#Подія</span></span><time class="date" datetime="2026-07-04">04 липня 2026</time><h3>Software Engineering in the Age of AI</h3></div>
       </a>
       <a class="card" href="https://sdt.semanticidea.com/tytenko-ucu-digital-transformation-universities-2026">
-        <div class="card-img"><span class="ph">UCU</span><img loading="lazy" src="https://auk.edu.ua/uploads/symlink/4000_5000/4049_1782043702686.jpg" alt="" onerror="this.remove()"></div>
+        <div class="card-img"><span class="ph">UCU</span><img loading="lazy" src="assets/img/news/ucu-digital-transformation.jpg" alt="" onerror="this.remove()"></div>
         <div class="card-body"><span class="tagrow"><span class="tag">#AUK Faculty</span></span><time class="date" datetime="2026-06-27">27 червня 2026</time><h3>Сергій Титенко представив AUK на конференції «Digital Transformation of Universities» в UCU</h3></div>
       </a>
     </div>
@@ -514,7 +521,7 @@ input:focus, select:focus { outline: none; border-color: var(--navy); box-shadow
   <div class="wrap">
     <div class="ftr-top">
       <div>
-        <a class="logo" href="#top"><span class="logo-mark">AUK</span><span class="logo-txt">EPAM School of<br>Digital Technologies<small>American University Kyiv</small></span></a>
+        <a class="logo" href="#top" aria-label="EPAM School of Digital Technologies, American University Kyiv"><img class="logo-img" src="assets/img/brand/logo-white.png" alt="EPAM School of Digital Technologies, American University Kyiv" width="2100" height="1128" loading="lazy"></a>
         <div class="social">
           <a href="https://www.facebook.com/auk.edu.ua" aria-label="Facebook">FB</a>
           <a href="https://www.linkedin.com/company/american-university-kyiv/" aria-label="LinkedIn">IN</a>
