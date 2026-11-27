@@ -4,7 +4,7 @@ A single-page landing for EPAM School of Digital Technologies at American Univer
 
 - `index.html` is self-contained (inline CSS and JS, fonts from Google Fonts). Open it in a browser or serve the folder with any static host (GitHub Pages, Netlify).
 - Content comes from the current landing at sdt.semanticidea.com and the AUK page /ua/epam-school-of-digital-technologies/.
-- Design tokens come from auk.edu.ua's own stylesheet: navy `#002588`, red `#d01822`, grey surface `#f6f6f6`, black text, Inter for body text, and Object Sans at weight 400 for headings. The page uses self-hosted Open Sans (`assets/fonts`, Apache 2.0) for both headings and body text.
+- Design tokens come from auk.edu.ua's own stylesheet: navy `#002588`, red `#d01822`, grey surface `#f6f6f6`, black text, Inter for body text, and Object Sans at weight 400 for headings. The page uses self-hosted Object Sans for headings and Open Sans (Apache 2.0) for body text, both in `assets/fonts`. Object Sans is a commercial font: keep its use covered by AUK's licence.
 - Images, logos and the hero video are bundled in `assets/`.
 
 ## Open questions

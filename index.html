@@ -7,15 +7,18 @@
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="assets/img/brand/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="assets/img/brand/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/ObjectSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/OpenSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+@font-face { font-family: "Object Sans"; src: url(assets/fonts/ObjectSans-Regular.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Object Sans"; src: url(assets/fonts/ObjectSans-Bold.woff2) format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
 @font-face { font-family: "Open Sans"; src: url(assets/fonts/OpenSans-Regular.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: "Open Sans"; src: url(assets/fonts/OpenSans-Italic.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
 @font-face { font-family: "Open Sans"; src: url(assets/fonts/OpenSans-Bold.woff2) format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
 @font-face { font-family: "Open Sans"; src: url(assets/fonts/OpenSans-BoldItalic.woff2) format("woff2"); font-weight: 700; font-style: italic; font-display: swap; }
 /* Design tokens taken from auk.edu.ua's own stylesheet (/css/user/app.css, read 2026-11-27):
-   - Fonts: AUK uses ObjectSans 400 for headings and Inter for body. This page uses self-hosted Open Sans
-     (assets/fonts, Apache 2.0) for both, at regular weight for headings as on AUK.
+   - Fonts: Object Sans 400 for every heading (never bold), as on AUK. Body text uses Open Sans
+     (AUK uses Inter). Both are self-hosted in assets/fonts.
    - Colors: black text, navy #002588, red #d01822, grey surface #f6f6f6, hairlines rgba(0,0,0,.1).
    - Sizing scales with the viewport like AUK's (1rem = 15px at 1440px wide).
    - Pill buttons (radius 100px), 5px card radius, round icon chips. */
@@ -32,7 +35,7 @@
   --surface: #f6f6f6;
   --field: rgba(217,217,217,.3);
   --paper: #fff;
-  --head: "Open Sans", Arial, sans-serif;
+  --head: "Object Sans", "Open Sans", Arial, sans-serif;
   --body: "Open Sans", Arial, sans-serif;
   --side: 2.5rem;                  /* AUK side padding: 37.5px at 1440 */
   --sec: 5rem;                     /* AUK section padding: 75px at 1440 */
