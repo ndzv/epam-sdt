@@ -4,8 +4,8 @@ A single-page landing for EPAM School of Digital Technologies at American Univer
 
 - `index.html` is self-contained (inline CSS and JS, fonts from Google Fonts). Open it in a browser or serve the folder with any static host (GitHub Pages, Netlify).
 - Content comes from the current landing at sdt.semanticidea.com and the AUK page /ua/epam-school-of-digital-technologies/.
-- Brand tokens: navy `#002588` / `#001c66`, red `#d01822` / `#a91119`. The heading font is Plus Jakarta Sans as a stand-in for the brand font Object Sans, which needs to be self-hosted.
-- Images are hotlinked from auk.edu.ua and sdt.semanticidea.com, with navy placeholders if they fail to load.
+- Design tokens come from auk.edu.ua's own stylesheet: navy `#002588`, red `#d01822`, grey surface `#f6f6f6`, black text, Inter for body text, and Object Sans at weight 400 for headings. Object Sans is a commercial font, so the page uses Geologica 300 (Google Fonts) as the closest free match; swap it in `--head` once a licensed copy is self-hosted.
+- Images, logos and the hero video are bundled in `assets/`.
 
 ## Open questions
 - Dean title for Сергій Титенко differs between the two sources ("Декан" vs "Заступник декана").
