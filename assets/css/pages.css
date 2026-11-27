@@ -1,0 +1,245 @@
+/* Subpages (programs, faculty, news, profiles, articles).
+   Builds on site.css: same tokens, header, footer, buttons and cards as the landing.
+   Program pages keep the content markup of sdt.semanticidea.com (mse-*, bp-* classes)
+   and restyle it with the AUK system: Object Sans 400 headings, navy/grey/pink bands,
+   hairline lists, pill buttons, round number chips. */
+
+body.no-bar { padding-bottom: 0; }
+
+/* Page hero variants */
+.hero--short { grid-template-columns: 1fr; min-height: 0; }
+.hero--short .hero-txt { padding-bottom: 3.5rem; }
+.hero--short h1 { color: #fff; margin-bottom: 0; }
+.hero h1 .dim { color: rgba(255,255,255,.5); display: block; }
+.hero-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero-eyebrow { font: 400 1rem/1.2 var(--head); color: rgba(255,255,255,.7); margin-bottom: 1rem; }
+
+/* Light page head with dark breadcrumbs (profile and article pages) */
+.phead { padding-top: 1.5rem; }
+.crumbs--dark { color: var(--muted); margin-bottom: 0; }
+.crumbs--dark a:hover { color: var(--ink); }
+.crumbs--dark span + span::before, .crumbs--dark a + span::before, .crumbs--dark a + a::before { background: rgba(0,0,0,.25); }
+
+/* Shared section rhythm for program content */
+.pg .mse-band, .pg .mse-overview, .pg .bp-admission, .pg .page-text > .epam-feature-grid, .pg .mse-track-badges {
+  padding: var(--sec) max(var(--side), env(safe-area-inset-right, 0px)) var(--sec) max(var(--side), env(safe-area-inset-left, 0px)); }
+.pg h2 { font-size: 4.75rem; line-height: 1; margin-bottom: 2.5rem; max-width: 22ch; }
+.pg h3 { font-size: 1.5rem; line-height: 1.2; }
+.pg p { line-height: 1.45; }
+.epam-eyebrow { display: flex; align-items: center; gap: .6rem; font: 400 1rem/1.2 var(--head); border-top: 1px solid var(--line); padding-top: 1.25rem; margin-bottom: 1.5rem !important; }
+.epam-eyebrow::before { content: ""; width: .6rem; height: .6rem; border-radius: 50%; background: var(--red); flex: none; }
+
+/* Band colours mapped onto the AUK palette */
+.mse-band--maroon, .mse-band--navy { background: var(--navy); color: #fff; }
+.mse-band--red { background: var(--red-tint); }
+.mse-band--tint, .bp-band--sky { background: var(--surface); }
+.mse-band--white { background: #fff; }
+.mse-band--maroon .epam-eyebrow, .mse-band--navy .epam-eyebrow { border-color: rgba(255,255,255,.2); }
+.mse-band--maroon .epam-eyebrow::before, .mse-band--navy .epam-eyebrow::before { background: #fff; }
+
+/* Overview: title left, lead right, numbered pillars below (AUK "Хто ми") */
+.mse-overview { display: grid; grid-template-columns: 1fr 1fr; gap: 0 2.5rem; align-items: start; }
+.mse-overview h2 { margin-bottom: 0; }
+.bp-lead p, .mse-overview-lead { font-size: 1.15rem; line-height: 1.5; }
+.mse-overview-lead { grid-column: 1 / -1; font: 400 2rem/1.25 var(--head); max-width: 40ch; }
+.mse-overview-lead strong { font-weight: 400; color: var(--red); }
+.bp-pillars { grid-column: 1 / -1; list-style: none; margin: 4rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem; }
+.bp-pillar { border-top: 1px solid var(--line); padding-top: 1.4rem; color: var(--ink-2); line-height: 1.45; position: relative; }
+.bp-pillar-num, .mse-track-num, .mse-timeline-num { width: 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--red-tint); color: var(--red); display: grid; place-items: center; font: 400 1.1rem/1 var(--head); margin-bottom: 1rem; flex: none; }
+
+/* Three feature columns (MSE) */
+.page-text > .epam-feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; padding-top: 0; }
+.epam-feature { border-top: 1px solid var(--line); padding-top: 1.6rem; display: grid; gap: 1rem; align-content: start; }
+.epam-feature p { color: var(--muted); }
+
+/* Degree track badges (MSE) */
+.mse-track-badges { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding-top: 0 !important; }
+.mse-track-badge { background: var(--surface); border-radius: .33rem; padding: 2rem; font: 400 2rem/1.1 var(--head); display: flex; flex-direction: column; }
+.mse-track-badge small { font: 400 1rem/1.4 var(--body); color: var(--muted); margin-top: .8rem; }
+
+/* Skill / "what you'll learn" cards */
+.mse-skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.mse-skill-card { background: #fff; border-radius: .33rem; padding: 2rem 2rem 2.4rem; display: flex; flex-direction: column; gap: 1rem; }
+.mse-skill-card img, .bp-learn-icon { width: 3.6rem; height: 3.6rem; border-radius: 50%; background: var(--red-tint); padding: .8rem; color: var(--red); display: grid; place-items: center; }
+.bp-learn-icon svg { width: 1.6rem; height: 1.6rem; }
+.mse-skill-card p { color: var(--muted); }
+.mse-band--maroon .mse-skill-card, .mse-band--navy .mse-skill-card { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.15); }
+.mse-band--maroon .mse-skill-card p { color: rgba(255,255,255,.75); }
+.mse-band--maroon .mse-skill-card img { background: #fff; }
+
+/* Career chips */
+.mse-chips { display: flex; flex-wrap: wrap; gap: .6rem; }
+.mse-chip { border: 1px solid rgba(0,0,0,.2); border-radius: 100px; padding: .8rem 1.6rem; font: 400 1.2rem/1.2 var(--head); }
+
+/* Careers / sectors (bachelor) */
+.bp-outcomes { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+.bp-outcomes h2 { font-size: 3.25rem; }
+.bp-outcome-list { list-style: none; margin: 0; padding: 0; }
+.bp-outcome-list li { border-top: 1px solid var(--line); padding: 1.1rem 0; font: 400 1.25rem/1.3 var(--head); display: flex; gap: 1rem; align-items: baseline; }
+.bp-outcome-list li::before { content: ""; width: .5rem; height: .5rem; border-radius: 50%; background: var(--red); flex: none; transform: translateY(-.15rem); }
+
+/* Faculty cards on program pages (same card as the landing) */
+.mse-faculty-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+.mse-faculty-card { background: rgba(255,255,255,.7); padding: .7rem .7rem 1rem; display: flex; flex-direction: column; text-decoration: none; transition: background .2s; }
+a.mse-faculty-card:hover { background: #fff; }
+.mse-faculty-photo { aspect-ratio: 1; width: 100%; object-fit: cover; background: #e9e9e9; margin-bottom: 1rem; }
+.mse-faculty-name { font: 400 1.1rem/1.2 var(--head); }
+.mse-faculty-role { margin-top: auto; padding-top: 1.2rem; font-size: .8rem; line-height: 1.5; color: var(--faint); }
+
+/* Curriculum (MSE) */
+.mse-band--tint .mse-band-inner > h3 { font-size: 2rem; margin-bottom: 1.6rem; }
+.mse-course-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.mse-course-card { background: #fff; border-radius: .33rem; padding: 2rem; display: flex; flex-direction: column; gap: .9rem; }
+.mse-course-icon { width: 3rem; height: 3rem; border-radius: 50%; background: var(--red-tint); padding: .6rem; }
+.mse-course-people-label { font-size: .75rem; text-transform: uppercase; color: var(--faint); margin-top: .4rem; }
+.mse-course-people { display: flex; flex-wrap: wrap; gap: .5rem; }
+.mse-person { display: inline-flex; align-items: center; gap: .6rem; background: var(--surface); border-radius: 100px; padding: .3rem 1rem .3rem .3rem; text-decoration: none; font-size: .9rem; }
+a.mse-person:hover { background: #000; color: #fff; }
+.mse-person-photo { width: 2.2rem; height: 2.2rem; border-radius: 50%; object-fit: cover; }
+.mse-course-bio { color: var(--muted); font-size: .9rem; }
+
+/* ECTS structure (landing "stats" pattern) */
+.mse-band--navy > .mse-band-inner > p { max-width: 50ch; font-size: 1.15rem; }
+.mse-ects-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 3.5rem 0 2rem; border-top: 1px solid rgba(255,255,255,.3); }
+.mse-ects-stat { padding: 1.6rem 1.5rem 1.6rem 0; display: flex; flex-direction: column; gap: 1rem; border-right: 1px solid rgba(255,255,255,.3); }
+.mse-ects-stat + .mse-ects-stat { padding-left: 1.5rem; }
+.mse-ects-stat:last-child { border-right: 0; }
+.mse-ects-value { font: 400 5rem/1 var(--head); }
+.mse-ects-unit { font: 400 1rem var(--body); margin-left: .4rem; opacity: .7; }
+.mse-ects-label { text-transform: uppercase; font-size: .85rem; line-height: 1.4; }
+.mse-ects-note { color: rgba(255,255,255,.7); font-size: .95rem !important; }
+
+/* Internship photo band */
+.bp-internship { position: relative; color: #fff; background: #111 url(../img/pages/internship.webp) center/cover no-repeat; min-height: 34rem; display: flex; align-items: flex-end; isolation: isolate; }
+.bp-internship::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0,0,0,.1) 0%, rgba(0,0,0,.65) 100%); }
+.bp-internship-inner { max-width: 50rem; }
+.bp-internship h2 { font-size: 3.5rem; margin-bottom: 1.4rem; }
+.bp-internship p { font-size: 1.15rem; color: rgba(255,255,255,.9); }
+
+/* Admission requirements / documents */
+.bp-admission { background: #fff; }
+.mse-admission-heading, .mse-grants-heading { font-size: 4.75rem; }
+.mse-admission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+.mse-admission-grid h3 { font-size: 2rem; margin-bottom: 1.2rem; }
+.mse-check-list { list-style: none; margin: 0; padding: 0; }
+.mse-check-list li { border-top: 1px solid var(--line); padding: .95rem 0 .95rem 2.4rem; position: relative; line-height: 1.45; }
+.mse-check-list li::before { content: ""; position: absolute; left: 0; top: .95rem; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--red-tint) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d01822' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/.85rem no-repeat; }
+.bp-admission .mse-grants-heading { font-size: 2rem; margin: 4rem 0 1.6rem; }
+
+/* Grants */
+.mse-grants-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.mse-grant-card { background: #fff; border-radius: .33rem; padding: 2rem; display: flex; flex-direction: column; gap: 1rem; border-top: 3px solid var(--red); }
+.bp-admission .mse-grant-card { background: var(--surface); }
+.mse-grant-card h4 { font-size: 1.8rem; }
+.mse-grant-card p { color: var(--muted); }
+
+/* Admission timeline (landing "steps" on navy) */
+.mse-timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem; }
+.mse-timeline-step .mse-timeline-num { background: #fff; color: var(--navy); }
+.mse-timeline-step h3 { border-top: 1px solid rgba(255,255,255,.25); margin-top: .8rem; padding-top: 1.6rem; margin-bottom: 1.2rem; }
+.mse-timeline-step p { color: rgba(255,255,255,.7); }
+
+/* FAQ accordion */
+.mse-faq { border-bottom: 1px solid var(--line); }
+.mse-faq-item { border-top: 1px solid var(--line); }
+.mse-faq-item summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 2rem; padding: 1.5rem 0; font: 400 1.5rem/1.25 var(--head); }
+.mse-faq-item summary::-webkit-details-marker { display: none; }
+.mse-faq-item summary::after { content: ""; width: 2.6rem; height: 2.6rem; flex: none; border-radius: 50%; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E") center/1.1rem no-repeat; transition: transform .2s, background-color .2s; }
+.mse-faq-item[open] summary::after { transform: rotate(45deg); background-color: var(--red-tint); }
+.mse-faq-item summary:hover { color: var(--red); }
+.mse-faq-item p { padding: 0 4.6rem 1.6rem 0; color: var(--ink-2); max-width: 60rem; }
+
+/* Closing consultation band */
+.cta-photo { position: relative; text-align: center; color: #fff; background: var(--navy) url(../img/pages/consultation-cta.webp) center/cover no-repeat !important; isolation: isolate; }
+.cta-photo::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(0,37,136,.82); }
+.cta-photo .mse-band-inner { max-width: 52rem; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1.6rem; }
+.cta-photo h2 { margin: 0 auto; font-size: 3.5rem; max-width: none; }
+.cta-photo p { font-size: 1.15rem; color: rgba(255,255,255,.85); }
+.cta-photo .btn { background: #fff; color: #000; border-color: #fff; font-size: 1.2rem; padding: .8rem 2.4rem; }
+.cta-photo .btn:hover { background: rgba(255,255,255,.85); }
+
+/* Faculty and news index pages */
+.people--all { grid-template-columns: repeat(4, minmax(0, 17.5rem)); margin-top: 0; }
+.news--all { grid-template-columns: repeat(3, 1fr); }
+.post p { font-size: .9rem; color: var(--muted); padding: 0 .3rem; }
+
+/* Teacher profile (AUK teacher page) */
+.prof { display: grid; grid-template-columns: minmax(0, 26rem) minmax(0, 1fr); gap: 4rem; padding-block: 2.5rem var(--sec); align-items: start; }
+.prof-photo { aspect-ratio: 1; background: var(--surface); overflow: hidden; position: sticky; top: 6rem; }
+.prof-photo img { width: 100%; height: 100%; object-fit: cover; }
+.prof h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+.teacher-role { font-size: 1.15rem; color: var(--muted); margin-bottom: 1.8rem !important; }
+.teacher-contacts { list-style: none; margin: 0 0 2.5rem; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+.teacher-contact > a, .teacher-contact-email { display: inline-flex; align-items: center; gap: .55rem; border: 1px solid rgba(0,0,0,.2); border-radius: 100px; padding: .5rem 1.2rem .5rem .6rem; text-decoration: none; font-size: .9rem; transition: background .2s, color .2s, border-color .2s; }
+.teacher-contact > a:hover { background: #000; color: #fff; border-color: #000; }
+.teacher-contact-icon { width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--red-tint); color: var(--red); display: grid; place-items: center; }
+.teacher-contact-icon svg { width: 1rem; height: 1rem; }
+/* Rich text on profile and article pages */
+.prof .page-text, .art .page-text { line-height: 1.6; }
+.prof .page-text p + p, .art .page-text p + p, .prof .page-text ol + p { margin-top: 1rem; }
+.prof .page-text h2 { font-size: 2rem; margin: 2.5rem 0 1.2rem; }
+.prof .page-text ol { margin: 0; padding-left: 1.4rem; }
+.prof .page-text li { padding: .5rem 0; border-bottom: 1px solid var(--line); }
+.prof .page-text a, .art .page-text a { color: var(--red); word-break: break-word; }
+.prof-body > .page-text { font-size: 1.1rem; }
+.teacher-tabs { margin-top: 2.5rem; position: relative; }
+.teacher-tab-radio { position: absolute; opacity: 0; pointer-events: none; }
+.teacher-tab-labels { display: flex; gap: .4rem; border-bottom: 1px solid var(--line); padding-bottom: 1.2rem; margin-bottom: 1.6rem; }
+.teacher-tab-labels label { cursor: pointer; border-radius: 100px; padding: .55rem 1.4rem; border: 1px solid rgba(0,0,0,.2); font: 400 1rem/1.2 var(--head); }
+.teacher-tab-labels label:hover { border-color: #000; }
+.teacher-tab-radio:nth-of-type(1):checked ~ .teacher-tab-labels label:nth-child(1),
+.teacher-tab-radio:nth-of-type(2):checked ~ .teacher-tab-labels label:nth-child(2) { background: var(--navy); border-color: var(--navy); color: #fff; }
+.teacher-tab-radio:nth-of-type(1):focus-visible ~ .teacher-tab-labels label:nth-child(1),
+.teacher-tab-radio:nth-of-type(2):focus-visible ~ .teacher-tab-labels label:nth-child(2) { outline: 2px solid var(--red); outline-offset: 3px; }
+.teacher-tab-panel { display: none; }
+.teacher-tab-radio:nth-of-type(1):checked ~ .teacher-tab-panel-bio,
+.teacher-tab-radio:nth-of-type(2):checked ~ .teacher-tab-panel-research { display: block; }
+
+/* News article (AUK news page) */
+.art { max-width: calc(58rem + 2 * var(--side)); margin: 0 auto; padding-block: 2.5rem var(--sec); }
+.art h1 { font-size: 3.5rem; line-height: 1.05; margin-bottom: 1.4rem; }
+.art time { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 2rem; }
+.art figure { margin: 0 0 2.4rem; border-radius: .33rem; overflow: hidden; background: var(--surface); }
+.art figure img { width: 100%; height: auto; }
+.art .page-text { font-size: 1.15rem; }
+.art-back { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+.art-back .btn { background: #fff; color: #000; border-color: rgba(0,0,0,.3); }
+.art-back .btn:hover { background: #000; color: #fff; border-color: #000; }
+.art-back .btn svg { transform: rotate(180deg); }
+
+@media (max-width: 1024px) {
+  .pg h2, .mse-admission-heading, .mse-grants-heading { font-size: 3.4rem; }
+  .bp-pillars, .mse-timeline { grid-template-columns: 1fr 1fr; }
+  .mse-skills-grid { grid-template-columns: 1fr 1fr; }
+  .mse-faculty-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .mse-ects-grid { grid-template-columns: 1fr 1fr; }
+  .mse-ects-stat:nth-child(2) { border-right: 0; }
+  .mse-ects-stat:nth-child(3) { padding-left: 0; }
+  .mse-ects-stat:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,.3); }
+  .people--all { grid-template-columns: repeat(3, minmax(0, 17.5rem)); }
+  .news--all { grid-template-columns: 1fr 1fr; }
+  .prof { grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 2.5rem; }
+}
+@media (max-width: 720px) {
+  .pg h2, .mse-admission-heading, .mse-grants-heading, .bp-outcomes h2, .bp-internship h2, .cta-photo h2 { font-size: 2.3rem; }
+  .pg h2 { margin-bottom: 1.8rem; }
+  .mse-overview, .bp-outcomes, .mse-admission-grid, .mse-course-grid, .mse-track-badges, .page-text > .epam-feature-grid { grid-template-columns: 1fr; }
+  .mse-overview h2 { margin-bottom: 1.5rem; }
+  .mse-overview-lead { font-size: 1.4rem; }
+  .bp-pillars, .mse-timeline, .mse-skills-grid, .mse-grants-grid { grid-template-columns: 1fr; gap: 1.6rem; }
+  .mse-skills-grid, .mse-grants-grid { gap: .8rem; }
+  .bp-pillars { margin-top: 2.5rem; }
+  .mse-faculty-grid { grid-template-columns: 1fr 1fr; gap: .6rem; }
+  .mse-ects-value { font-size: 3.4rem; }
+  .mse-skill-card, .mse-course-card, .mse-grant-card { padding: 1.4rem; }
+  .bp-internship { min-height: 26rem; }
+  .mse-faq-item summary { font-size: 1.2rem; gap: 1rem; }
+  .mse-faq-item p { padding-right: 0; }
+  .mse-chip { font-size: 1rem; padding: .6rem 1.1rem; }
+  .people--all { grid-template-columns: 1fr 1fr; }
+  .news--all { grid-template-columns: 1fr; }
+  .prof { grid-template-columns: 1fr; gap: 1.6rem; padding-top: 1.6rem; }
+  .prof-photo { position: static; max-width: 20rem; }
+  .prof h1, .art h1 { font-size: 2.3rem; }
+  .art { padding-top: 1.6rem; }
+}
