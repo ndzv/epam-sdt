@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EPAM School of Digital Technologies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: AUK main-site pattern. Utility bar + white header, sticky anchor sub-nav,
+   full-width navy hero, alternating white / light-grey sections, navy footer.
+   Single light theme on purpose, to match auk.edu.ua.
+   Colors and fonts follow the brand tokens in the colleague's CSS; auk.edu.ua's own CSS could not be read. */
+:root {
+  color-scheme: light;
+  --navy: #002588;        /* brand navy, from the colleague's tokens; TO CONFIRM vs auk.edu.ua */
+  --navy-2: #001c66;
+  --red: #d01822;         /* from the colleague's landing (flag red) */
+  --red-dark: #a91119;
+  --ink: #141a26;
+  --muted: #5a6478;
+  --line: #dfe3ec;
+  --paper: #ffffff;
+  --paper-2: #f3f5f9;
+  --on-dark: #ffffff;
+  --on-dark-muted: #b9c3da;
+  --font-head: "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif; /* stand-in for Object Sans (brand font, not on Google Fonts) */
+  --font-body: "Inter", "Segoe UI", Arial, sans-serif;      /* TO CONFIRM */
+  --wrap: 1200px;
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.6 var(--font-body); }
+h1, h2, h3 { font-family: var(--font-head); text-wrap: balance; margin: 0; line-height: 1.15; }
+h2 { font-size: clamp(1.75rem, 3.2vw, 2.5rem); font-weight: 700; color: var(--navy); }
+h3 { font-size: 1.15rem; font-weight: 700; }
+p { margin: 0; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+.wrap { max-width: var(--wrap); margin: 0 auto; padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+.eyebrow { font: 600 .78rem/1 var(--font-head); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+.lead { color: var(--muted); font-size: 1.05rem; max-width: 62ch; }
+.sec { padding-block: clamp(56px, 8vw, 96px); }
+.sec--grey { background: var(--paper-2); }
+.sec-head { display: grid; gap: 14px; margin-bottom: 40px; }
+
+/* Buttons: AUK CTA with arrow */
+.btn { display: inline-flex; align-items: center; gap: 12px; padding: 15px 26px; background: var(--red); color: #fff;
+  font: 600 .95rem/1 var(--font-head); text-decoration: none; border: 0; cursor: pointer; transition: background .2s; }
+.btn:hover { background: var(--red-dark); }
+.btn svg { width: 18px; height: 18px; transition: transform .2s; }
+.btn:hover svg { transform: translateX(4px); }
+.btn--ghost { background: transparent; color: var(--navy); box-shadow: inset 0 0 0 2px var(--navy); }
+.btn--ghost:hover { background: var(--navy); color: #fff; }
+.more { display: inline-flex; align-items: center; gap: 8px; font: 600 .95rem var(--font-head); color: var(--navy); text-decoration: none; border-bottom: 2px solid var(--red); padding-bottom: 4px; }
+
+/* Header */
+.util { background: var(--navy); color: var(--on-dark-muted); font-size: .8rem; }
+.util .wrap { display: flex; justify-content: flex-end; gap: 22px; padding-block: 8px; flex-wrap: wrap; }
+.util a { text-decoration: none; color: var(--on-dark-muted); }
+.util a:hover, .util .on { color: #fff; }
+.lang { display: flex; gap: 8px; }
+.hdr { background: var(--paper); border-bottom: 1px solid var(--line); }
+.hdr .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 16px; }
+.logo { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--navy); }
+.logo-mark { width: 46px; height: 46px; background: var(--navy); color: #fff; display: grid; place-items: center; font: 800 1rem var(--font-head); letter-spacing: .04em; position: relative; }
+.logo-mark::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: var(--red); }
+.logo-txt { font: 700 .95rem/1.15 var(--font-head); }
+.logo-txt small { display: block; font-weight: 500; font-size: .72rem; color: var(--muted); letter-spacing: .02em; }
+.nav { display: flex; gap: 26px; align-items: center; }
+.nav a { text-decoration: none; font: 600 .9rem var(--font-head); color: var(--ink); }
+.nav a:hover { color: var(--red); }
+.burger { display: none; background: none; border: 0; color: var(--navy); padding: 6px; cursor: pointer; }
+.crumbs { font-size: .82rem; color: var(--muted); padding-block: 12px; }
+.crumbs a { text-decoration: none; }
+.crumbs span { margin: 0 8px; color: var(--red); }
+
+/* Anchor sub-nav (AUK homepage pattern) */
+.subnav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--paper); border-bottom: 1px solid var(--line); }
+.subnav .wrap { display: flex; gap: 28px; overflow-x: auto; scrollbar-width: none; }
+.subnav a { flex: none; padding-block: 14px; font: 600 .85rem var(--font-head); text-decoration: none; color: var(--muted); border-bottom: 3px solid transparent; }
+.subnav a:hover { color: var(--navy); border-color: var(--red); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--paper); }
+
+/* Hero */
+.hero { background: var(--navy); color: var(--on-dark); position: relative; overflow: hidden; }
+.hero::before { content: ""; position: absolute; inset: 0; background:
+  radial-gradient(ellipse at 85% 20%, rgba(208,24,34,.28), transparent 55%),
+  linear-gradient(120deg, var(--navy) 40%, var(--navy-2)); }
+.hero .wrap { position: relative; display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; padding-block: clamp(56px, 9vw, 110px); }
+.hero h1 { font-size: clamp(2.1rem, 5vw, 3.6rem); font-weight: 800; margin: 18px 0 20px; }
+.hero .eyebrow { color: #fff; opacity: .85; }
+.hero-rule { width: 64px; height: 4px; background: var(--red); display: block; margin-top: 18px; }
+.hero p { color: var(--on-dark-muted); font-size: 1.1rem; max-width: 52ch; margin-bottom: 32px; }
+.hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+.hero-cta .btn--ghost { color: #fff; box-shadow: inset 0 0 0 2px rgba(255,255,255,.6); }
+.hero-cta .btn--ghost:hover { background: #fff; color: var(--navy); }
+.hero-art { max-width: 440px; justify-self: center; width: 100%; }
+.hero-facts { position: relative; border-top: 1px solid rgba(255,255,255,.14); }
+.hero-facts .wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding-block: 26px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.fact b { display: block; font: 800 1.6rem var(--font-head); color: #fff; }
+.fact span { font-size: .85rem; color: var(--on-dark-muted); }
+
+/* Approach */
+.pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--line); border: 1px solid var(--line); }
+.pillar { background: var(--paper); padding: 32px 28px; display: grid; gap: 14px; align-content: start; }
+.pillar-ico { width: 48px; height: 48px; color: var(--red); }
+.pillar p { color: var(--muted); }
+
+/* ASU partnership */
+.asu { background: var(--navy); color: var(--on-dark); }
+.asu .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.asu h2 { color: #fff; }
+.asu .lead { color: var(--on-dark-muted); margin-top: 16px; }
+.asu-badge { display: inline-block; margin-bottom: 18px; padding: 8px 14px; border: 1px solid rgba(255,255,255,.4); font: 700 .8rem var(--font-head); letter-spacing: .12em; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,.18); }
+.stat { background: var(--navy); padding: 28px 20px; display: grid; gap: 8px; align-content: start; }
+.stat b { font: 800 2.4rem/1 var(--font-head); color: #fff; }
+.stat b em { font-style: normal; color: var(--red); }
+.stat span { font-size: .88rem; color: var(--on-dark-muted); }
+
+/* Program cards (AUK card: 1000x720 photo, start label, title, Детальніше) */
+.programs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.card { background: var(--paper); display: flex; flex-direction: column; text-decoration: none; color: var(--ink); border: 1px solid var(--line); transition: box-shadow .2s, transform .2s; }
+.card:hover { box-shadow: 0 14px 34px rgba(0,37,136,.12); transform: translateY(-3px); }
+.card-img { aspect-ratio: 1000 / 720; background: var(--navy-2); position: relative; overflow: hidden; }
+.card-img img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1; }
+.card-img .ph { position: absolute; inset: 0; display: grid; place-items: center; color: rgba(255,255,255,.9); font: 800 2rem var(--font-head);
+  background: linear-gradient(135deg, var(--navy), var(--navy-2)); }
+.card-body { padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.tagrow { display: flex; gap: 8px; flex-wrap: wrap; }
+.tag { font: 600 .72rem var(--font-head); letter-spacing: .04em; padding: 5px 10px; background: var(--paper-2); color: var(--navy); }
+.tag--red { background: var(--red); color: #fff; }
+.card h3 { color: var(--navy); }
+.card .go { margin-top: auto; padding-top: 8px; font: 600 .88rem var(--font-head); color: var(--red); display: inline-flex; gap: 8px; align-items: center; }
+.card--cta { background: var(--navy); color: #fff; border-color: var(--navy); justify-content: center; padding: 32px; gap: 18px; }
+.card--cta h3 { color: #fff; font-size: 1.4rem; }
+.card--cta p { color: var(--on-dark-muted); }
+
+/* Steps */
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; counter-reset: s; }
+.step { display: grid; gap: 12px; align-content: start; }
+.step-n { width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--red); color: var(--red); display: grid; place-items: center; font: 800 1.2rem var(--font-head); }
+.step p { color: var(--muted); font-size: .95rem; }
+
+/* News */
+.news { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.news .card-img { aspect-ratio: 16 / 10; }
+.date { font-size: .82rem; color: var(--muted); }
+.news h3 { font-size: 1.02rem; line-height: 1.35; }
+
+/* Faculty */
+.people { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+.person { display: grid; gap: 6px; text-decoration: none; }
+.person-img { aspect-ratio: 1; background: var(--paper-2); position: relative; overflow: hidden; margin-bottom: 10px; }
+.person-img img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1; filter: grayscale(.15); }
+.person-img .ph { position: absolute; inset: 0; display: grid; place-items: center; font: 800 2.2rem var(--font-head); color: var(--navy); }
+.person b { font: 700 1.05rem var(--font-head); color: var(--navy); }
+.person span { font-size: .88rem; color: var(--muted); }
+
+/* Research split */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--line); }
+.split > div { background: var(--paper); padding: clamp(28px, 4vw, 48px); display: grid; gap: 16px; align-content: start; }
+.split > div:first-child { background: var(--navy); color: #fff; }
+.split > div:first-child h3 { color: #fff; }
+.split > div:first-child p { color: var(--on-dark-muted); }
+.split h3 { font-size: 1.5rem; color: var(--navy); }
+.split p { color: var(--muted); }
+.meta { display: flex; gap: 18px; flex-wrap: wrap; font: 600 .85rem var(--font-head); }
+.meta span::before { content: "• "; color: var(--red); }
+
+/* Form */
+.lead-form { display: grid; grid-template-columns: .9fr 1.1fr; gap: 0; background: var(--paper); border: 1px solid var(--line); }
+.lead-side { background: var(--red); color: #fff; padding: clamp(28px, 4vw, 48px); display: grid; gap: 16px; align-content: start; }
+.lead-side h2 { color: #fff; }
+.lead-side p { color: rgba(255,255,255,.88); }
+.lead-side .contact { margin-top: 12px; font-weight: 600; }
+form { padding: clamp(28px, 4vw, 48px); display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.field { display: grid; gap: 6px; }
+.field--full { grid-column: 1 / -1; }
+label { font: 600 .8rem var(--font-head); color: var(--navy); }
+input, select { font: inherit; padding: 13px 14px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 0; width: 100%; }
+input:focus, select:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 3px rgba(0,37,136,.12); }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: .85rem; color: var(--muted); }
+.check input { width: auto; margin-top: 4px; }
+.ok { grid-column: 1 / -1; padding: 14px; background: var(--paper-2); color: var(--navy); font-weight: 600; }
+
+/* Footer */
+.ftr { background: var(--navy); color: var(--on-dark-muted); font-size: .9rem; }
+.ftr .wrap { padding-block: 56px 28px; display: grid; gap: 40px; }
+.ftr-top { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 32px; }
+.ftr h4 { font: 700 .8rem var(--font-head); letter-spacing: .12em; text-transform: uppercase; color: #fff; margin: 0 0 14px; }
+.ftr ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.ftr a { text-decoration: none; color: var(--on-dark-muted); }
+.ftr a:hover { color: #fff; }
+.ftr .logo { color: #fff; }
+.ftr .logo-txt small { color: var(--on-dark-muted); }
+.social { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+.social a { width: 38px; height: 38px; border: 1px solid rgba(255,255,255,.3); display: grid; place-items: center; font: 700 .72rem var(--font-head); color: #fff; }
+.social a:hover { background: var(--red); border-color: var(--red); }
+.ftr-bottom { border-top: 1px solid rgba(255,255,255,.14); padding-top: 22px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: .8rem; }
+
+@media (max-width: 960px) {
+  .nav { display: none; }
+  .burger { display: block; }
+  .nav.open { display: grid; position: absolute; left: 0; right: 0; top: 100%; background: var(--paper); padding: 16px var(--gutter-r) 20px var(--gutter-l); gap: 14px; border-bottom: 1px solid var(--line); z-index: 40; }
+  .hdr { position: relative; }
+  .hero .wrap, .asu .wrap, .split, .lead-form { grid-template-columns: 1fr; }
+  .hero-art { max-width: 280px; }
+  .programs, .news { grid-template-columns: 1fr 1fr; }
+  .people, .steps { grid-template-columns: 1fr 1fr; }
+  .pillars { grid-template-columns: 1fr; }
+  .ftr-top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .programs, .news, .stats { grid-template-columns: 1fr; }
+  form { grid-template-columns: 1fr; }
+  .ftr-top { grid-template-columns: 1fr; }
+  .util .wrap { justify-content: space-between; }
+  .util .hide-sm { display: none; }
+  .hero-art { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="util">
+  <div class="wrap">
+    <a class="hide-sm" href="https://auk.edu.ua/ua/admission-process/">Вступ 2026</a>
+    <a class="hide-sm" href="https://auk.edu.ua/ua/dnipro-campus/">АЮК Дніпро Кампус</a>
+    <a href="https://auk.edu.ua/ua/login/">Вхід</a>
+    <a href="https://auk.edu.ua/ua/create/">Реєстрація</a>
+    <span class="lang"><span class="on">UA</span><a href="https://sdt.semanticidea.com/en">EN</a></span>
+  </div>
+</div>
+
+<header class="hdr">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="EPAM School of Digital Technologies, American University Kyiv">
+      <span class="logo-mark">AUK</span>
+      <span class="logo-txt">EPAM School of<br>Digital Technologies<small>American University Kyiv</small></span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Головне меню">
+      <a href="#programs">Програми</a>
+      <a href="#admission">Вступ</a>
+      <a href="#faculty">Викладачі</a>
+      <a href="#research">Дослідження</a>
+      <a href="#news">Новини</a>
+      <a class="btn" href="#apply">Подати заявку <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </nav>
+    <button class="burger" id="burger" aria-controls="nav" aria-expanded="false" aria-label="Меню">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="wrap crumbs" id="top"><a href="https://auk.edu.ua/ua/">Головна</a><span>›</span><a href="https://auk.edu.ua/ua/schools/">Факультети АЮК</a><span>›</span>EPAM School of Digital Technologies</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">EPAM School of Digital Technologies</p>
+      <span class="hero-rule" aria-hidden="true"></span>
+      <h1>Американська освіта для ІТ в епоху AI</h1>
+      <p>Бакалаврські та магістерські ІТ-програми за американськими стандартами, у партнерстві з Arizona State University та за участі експертів EPAM. Подвійний диплом AUK та ASU.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#programs">Наші навчальні програми <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="btn btn--ghost" href="#apply">Отримати консультацію</a>
+      </div>
+    </div>
+    <svg class="hero-art" viewBox="0 0 480 400" role="img" aria-label="AI-native engineering">
+      <circle cx="240" cy="200" r="150" fill="rgba(255,255,255,0.06)"/>
+      <circle cx="240" cy="200" r="98" fill="rgba(255,255,255,0.08)"/>
+      <g stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none">
+        <line x1="240" y1="200" x2="120" y2="120"/><line x1="240" y1="200" x2="360" y2="120"/>
+        <line x1="240" y1="200" x2="130" y2="290"/><line x1="240" y1="200" x2="350" y2="290"/>
+        <line x1="240" y1="200" x2="240" y2="70"/>
+        <path d="M120 120 L240 70 L360 120 L350 290 L130 290 Z" stroke="rgba(255,255,255,0.18)"/>
+      </g>
+      <circle cx="240" cy="200" r="24" fill="#d01822"/>
+      <g fill="#fff"><circle cx="120" cy="120" r="11"/><circle cx="360" cy="120" r="11"/><circle cx="130" cy="290" r="11"/><circle cx="350" cy="290" r="11"/><circle cx="240" cy="70" r="11"/></g>
+    </svg>
+  </div>
+  <div class="hero-facts">
+    <div class="wrap">
+      <div class="fact"><b>2022</b><span>рік заснування школи в AUK</span></div>
+      <div class="fact"><b>5</b><span>програм бакалаврату та магістратури</span></div>
+      <div class="fact"><b>2 дипломи</b><span>AUK та Arizona State University</span></div>
+      <div class="fact"><b>Осінь 2026</b><span>старт наступного набору</span></div>
+    </div>
+  </div>
+</section>
+
+<nav class="subnav" aria-label="Розділи сторінки">
+  <div class="wrap">
+    <a href="#approach">Наш підхід</a>
+    <a href="#asu">Партнерство з ASU</a>
+    <a href="#programs">Обрати програму</a>
+    <a href="#admission">Вступ</a>
+    <a href="#faculty">Викладачі</a>
+    <a href="#research">AI Research Center</a>
+    <a href="#news">Новини</a>
+    <a href="#apply">Почни свою подорож</a>
+  </div>
+</nav>
+
+<section class="sec" id="approach">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Наш підхід</p>
+      <h2>Готуємо до AI-native індустрії створення цифрових продуктів</h2>
+      <p class="lead">Фундаментальні знання, AI-first підхід та реальний інженерний досвід.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <svg class="pillar-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 40h36M10 40V22M20 40V22M28 40V22M38 40V22M4 18 24 6l20 12z"/></svg>
+        <h3>Потужний фундамент</h3>
+        <p>AI підсилює знання, але не замінює їх. Саме тому ми будуємо міцну базу з програмування, алгоритмів, математики та комп'ютерних наук.</p>
+      </div>
+      <div class="pillar">
+        <svg class="pillar-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="12" y="12" width="24" height="24"/><path d="M18 4v8M30 4v8M18 36v8M30 36v8M4 18h8M4 30h8M36 18h8M36 30h8M19 19h10v10H19z"/></svg>
+        <h3>AI-First Engineering</h3>
+        <p>Студенти використовують AI під час аналізу, проєктування, програмування, тестування та досліджень, так само, як це відбувається в сучасній ІТ-індустрії.</p>
+      </div>
+      <div class="pillar">
+        <svg class="pillar-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="6" y="14" width="36" height="26"/><path d="M18 14V8h12v6M6 24h36"/></svg>
+        <h3>Проєкти та стажування</h3>
+        <p>Реальні проєкти, співпраця з індустрією та можливості стажування допомагають сформувати портфоліо ще під час навчання.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec asu" id="asu">
+  <div class="wrap">
+    <div>
+      <span class="asu-badge">POWERED BY ASU</span>
+      <h2>У партнерстві з Arizona State University</h2>
+      <p class="lead">Наша програма побудована у співпраці з Arizona State University, одним із найбільш інноваційних університетів США. U.S. News &amp; World Report багато років поспіль визнає ASU №1 в країні за інноваціями, попереду MIT і Stanford.</p>
+      <p style="margin-top:28px"><a class="btn" href="https://auk.edu.ua/ua/powered-by-asu/">Про партнерство з ASU <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b><em>#</em>1</b><span>ASU за інноваціями в США</span></div>
+      <div class="stat"><b>ASU</b><span>навчальні матеріали й менторство</span></div>
+      <div class="stat"><b>AI</b><span>спільні дослідницькі ініціативи</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--grey" id="programs">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Навчання</p>
+      <h2>Обрати програму</h2>
+      <p class="lead">Усі програми стартують восени 2026 року в київському кампусі AUK.</p>
+    </div>
+    <div class="programs">
+      <a class="card" href="https://sdt.semanticidea.com/software-engineering">
+        <div class="card-img"><span class="ph">MSE</span><img loading="lazy" src="https://sdt.semanticidea.com/static/content/media/mse.webp" alt="" onerror="this.remove()"></div>
+        <div class="card-body">
+          <div class="tagrow"><span class="tag tag--red">Магістратура</span><span class="tag">Старт: осінь 2026</span></div>
+          <h3>Master of Software Engineering – AI and Software Architecture</h3>
+          <span class="go">Детальніше →</span>
+        </div>
+      </a>
+      <a class="card" href="https://sdt.semanticidea.com/bachelor-software-engineering-and-ai">
+        <div class="card-img"><span class="ph">SE&amp;AI</span><img loading="lazy" src="https://sdt.semanticidea.com/static/content/media/seai.webp" alt="" onerror="this.remove()"></div>
+        <div class="card-body">
+          <div class="tagrow"><span class="tag">Бакалаврат</span><span class="tag">Старт: осінь 2026</span></div>
+          <h3>Бакалавр Software Engineering and AI</h3>
+          <span class="go">Детальніше →</span>
+        </div>
+      </a>
+      <a class="card" href="https://sdt.semanticidea.com/bachelor-digital-experience-design-and-ai">
+        <div class="card-img"><span class="ph">XD&amp;AI</span><img loading="lazy" src="https://sdt.semanticidea.com/static/content/media/xdai.webp" alt="" onerror="this.remove()"></div>
+        <div class="card-body">
+          <div class="tagrow"><span class="tag">Бакалаврат</span><span class="tag">Старт: осінь 2026</span></div>
+          <h3>Бакалавр Digital Experience Design &amp; AI</h3>
+          <span class="go">Детальніше →</span>
+        </div>
+      </a>
+      <a class="card" href="https://sdt.semanticidea.com/bachelor-data-science-and-ai">
+        <div class="card-img"><span class="ph">DS&amp;AI</span><img loading="lazy" src="https://sdt.semanticidea.com/static/content/media/dsai.webp" alt="" onerror="this.remove()"></div>
+        <div class="card-body">
+          <div class="tagrow"><span class="tag">Бакалаврат</span><span class="tag">Старт: осінь 2026</span></div>
+          <h3>Бакалавр Data Science &amp; AI</h3>
+          <span class="go">Детальніше →</span>
+        </div>
+      </a>
+      <a class="card" href="https://sdt.semanticidea.com/bachelor-cybersecurity">
+        <div class="card-img"><span class="ph">CYBER</span><img loading="lazy" src="https://sdt.semanticidea.com/static/content/media/cyber.webp" alt="" onerror="this.remove()"></div>
+        <div class="card-body">
+          <div class="tagrow"><span class="tag">Бакалаврат</span><span class="tag">Старт: осінь 2026</span></div>
+          <h3>Бакалавр Cybersecurity</h3>
+          <span class="go">Детальніше →</span>
+        </div>
+      </a>
+      <div class="card card--cta">
+        <h3>Не знаєте, яку програму обрати?</h3>
+        <p>Наша приймальна комісія допоможе підібрати програму під ваші цілі.</p>
+        <a class="btn" href="#apply">Отримати консультацію <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="admission">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Вступ 2026</p>
+      <h2>Чотири кроки до навчання в AUK</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="step-n">1</span><h3>Залиш контакти</h3><p>Заповни форму, і приймальна комісія зв'яжеться з тобою.</p></div>
+      <div class="step"><span class="step-n">2</span><h3>Створи профіль</h3><p>Зареєструйся в кабінеті абітурієнта AUK.</p></div>
+      <div class="step"><span class="step-n">3</span><h3>Склади вступні</h3><p>Пройди вступні випробування для обраної програми.</p></div>
+      <div class="step"><span class="step-n">4</span><h3>Підпиши договір</h3><p>Отримай рішення та розпочни навчання восени.</p></div>
+    </div>
+    <p style="margin-top:36px"><a class="more" href="https://auk.edu.ua/ua/admission-process/">Детальніше про вступ, вартість та гранти →</a></p>
+  </div>
+</section>
+
+<section class="sec sec--grey" id="faculty">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Експертиза</p>
+      <h2>Викладачі</h2>
+    </div>
+    <div class="people">
+      <a class="person" href="https://sdt.semanticidea.com/sergiy-tytenko"><div class="person-img"><span class="ph">СТ</span><img loading="lazy" src="https://sdt.semanticidea.com/static/content/media/st-square.png" alt="" onerror="this.remove()"></div><b>Сергій Титенко</b><span>Декан EPAM School of Digital Technologies, проф., к.т.н.</span></a>
+      <a class="person" href="https://sdt.semanticidea.com/oleksandra-antoniouk"><div class="person-img"><span class="ph">ОА</span><img loading="lazy" src="https://sdt.semanticidea.com/static/content/media/1745_830_antonyuk_400x400_1_900x800_0.webp" alt="" onerror="this.remove()"></div><b>Олександра Антонюк</b><span>Заступник декана, проф., д-р фіз.-мат. наук</span></a>
+      <a class="person" href="https://sdt.semanticidea.com/viktor-putrenko"><div class="person-img"><span class="ph">ВП</span><img loading="lazy" src="https://sdt.semanticidea.com/static/content/media/1723_831_putrenko_450x450_1_900x800_0.webp" alt="" onerror="this.remove()"></div><b>Віктор Путренко</b><span>Професор, д-р техн. наук</span></a>
+      <a class="person" href="https://sdt.semanticidea.com/oleksandr-yosypenko"><div class="person-img"><span class="ph">ОЙ</span><img loading="lazy" src="https://auk.edu.ua/uploads/symlink/3000_4000/3418_oleksandryusepenkos_900x800_0.webp" alt="" onerror="this.remove()"></div><b>Олександр Йосипенко</b><span>Викладач</span></a>
+    </div>
+    <p style="margin-top:36px"><a class="more" href="https://sdt.semanticidea.com/faculty">Дивитися всіх викладачів →</a></p>
+  </div>
+</section>
+
+<section class="sec" id="research">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Дослідження</p>
+      <h2>Наука в EPAM School</h2>
+    </div>
+    <div class="split">
+      <div>
+        <h3>AI Research Center</h3>
+        <p>Дослідницький центр школи, де студенти й викладачі працюють над прикладними задачами штучного інтелекту разом з індустріальними партнерами.</p>
+        <p><a class="more" style="color:#fff" href="https://auk.edu.ua/ua/v-ayuk-stvoryuetsya-tsentr-doslidzhennya-shtuchnogo-intelektu/">Про центр →</a></p>
+      </div>
+      <div>
+        <h3>Дослідницький семінар АЮК</h3>
+        <p>Відкритий майданчик для науковців, експертів індустрії та студентів.</p>
+        <div class="meta"><span>Кожні два тижні</span><span>Вівторок, 18:00</span><span>Гібридний формат</span></div>
+        <p><a class="more" href="https://auk.edu.ua/ua/academic-events/">Усі академічні семінари →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--grey" id="news">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Хроніка</p>
+      <h2>Новини EPAM School</h2>
+    </div>
+    <div class="news">
+      <a class="card" href="https://sdt.semanticidea.com/tytenko-asu-agentic-ai-student-experience-2026">
+        <div class="card-img"><span class="ph">ASU</span><img loading="lazy" src="https://auk.edu.ua/uploads/symlink/4000_5000/4046_1782727312407.jpg" alt="" onerror="this.remove()"></div>
+        <div class="card-body"><span class="tagrow"><span class="tag">#AUK Faculty</span></span><time class="date" datetime="2026-07-06">06 липня 2026</time><h3>Доповідь Сергія Титенка прийнято на Agentic AI and the Student Experience 2026 в Arizona State University</h3></div>
+      </a>
+      <a class="card" href="https://sdt.semanticidea.com/software-engineering-in-the-age-of-ai-2026">
+        <div class="card-img"><span class="ph">SE + AI</span><img loading="lazy" src="https://auk.edu.ua/uploads/symlink/4000_5000/4045_1782303515896.jpg" alt="" onerror="this.remove()"></div>
+        <div class="card-body"><span class="tagrow"><span class="tag">#Подія</span></span><time class="date" datetime="2026-07-04">04 липня 2026</time><h3>Software Engineering in the Age of AI</h3></div>
+      </a>
+      <a class="card" href="https://sdt.semanticidea.com/tytenko-ucu-digital-transformation-universities-2026">
+        <div class="card-img"><span class="ph">UCU</span><img loading="lazy" src="https://auk.edu.ua/uploads/symlink/4000_5000/4049_1782043702686.jpg" alt="" onerror="this.remove()"></div>
+        <div class="card-body"><span class="tagrow"><span class="tag">#AUK Faculty</span></span><time class="date" datetime="2026-06-27">27 червня 2026</time><h3>Сергій Титенко представив AUK на конференції «Digital Transformation of Universities» в UCU</h3></div>
+      </a>
+    </div>
+    <p style="margin-top:36px"><a class="more" href="https://sdt.semanticidea.com/news">Усі новини →</a></p>
+  </div>
+</section>
+
+<section class="sec" id="apply">
+  <div class="wrap">
+    <div class="lead-form">
+      <div class="lead-side">
+        <p class="eyebrow" style="color:#fff;opacity:.85">Вступ 2026</p>
+        <h2>Почни свою подорож</h2>
+        <p>Залиш контактні дані, і ми розповімо про програми EPAM School, вартість, гранти та вступ.</p>
+        <p class="contact">study@auk.edu.ua<br>м. Київ, Поштова площа, 3</p>
+      </div>
+      <form id="leadForm" novalidate>
+        <div class="field"><label for="fn">Ім'я</label><input id="fn" required autocomplete="given-name"></div>
+        <div class="field"><label for="ln">Прізвище</label><input id="ln" required autocomplete="family-name"></div>
+        <div class="field"><label for="em">Email</label><input id="em" type="email" required autocomplete="email"></div>
+        <div class="field"><label for="ph">Телефон</label><input id="ph" type="tel" autocomplete="tel"></div>
+        <div class="field field--full"><label for="pg">Програма</label>
+          <select id="pg"><option>Master of Software Engineering – AI and Software Architecture</option><option>Бакалавр Software Engineering and AI</option><option>Бакалавр Digital Experience Design &amp; AI</option><option>Бакалавр Data Science &amp; AI</option><option>Бакалавр Cybersecurity</option><option>Ще не визначився</option></select></div>
+        <label class="check field--full" for="ag"><input id="ag" type="checkbox" required> Я погоджуюсь з умовами обробки персональних даних</label>
+        <div class="field--full"><button class="btn" type="submit">Залишити контакти <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+        <p class="ok" id="ok" hidden>Це демо-форма: дані нікуди не надсилаються.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr-top">
+      <div>
+        <a class="logo" href="#top"><span class="logo-mark">AUK</span><span class="logo-txt">EPAM School of<br>Digital Technologies<small>American University Kyiv</small></span></a>
+        <div class="social">
+          <a href="https://www.facebook.com/auk.edu.ua" aria-label="Facebook">FB</a>
+          <a href="https://www.linkedin.com/company/american-university-kyiv/" aria-label="LinkedIn">IN</a>
+          <a href="https://www.instagram.com/auk.edu.ua" aria-label="Instagram">IG</a>
+          <a href="https://www.threads.com/@auk.edu.ua" aria-label="Threads">TH</a>
+          <a href="https://www.tiktok.com/@auk.edu.ua" aria-label="TikTok">TT</a>
+        </div>
+      </div>
+      <div><h4>Програми</h4><ul><li><a href="#programs">Магістр Software Engineering</a></li><li><a href="#programs">Software Engineering and AI</a></li><li><a href="#programs">Digital Experience Design &amp; AI</a></li><li><a href="#programs">Data Science &amp; AI</a></li><li><a href="#programs">Cybersecurity</a></li></ul></div>
+      <div><h4>Школа</h4><ul><li><a href="#faculty">Викладачі</a></li><li><a href="#research">AI Research Center</a></li><li><a href="#news">Новини</a></li><li><a href="https://auk.edu.ua/ua/admission-process/">Вступний процес</a></li></ul></div>
+      <div><h4>Контакти</h4><ul><li>study@auk.edu.ua</li><li>м. Київ, Поштова площа, 3, 04070</li><li><a href="https://auk.edu.ua/ua/contact/">Усі контакти</a></li></ul></div>
+    </div>
+    <div class="ftr-bottom">
+      <span>© 2026 EPAM School of Digital Technologies, American University Kyiv</span>
+      <a href="#top">Нагору ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var b = document.getElementById('burger'), n = document.getElementById('nav');
+  b.addEventListener('click', function () { var o = n.classList.toggle('open'); b.setAttribute('aria-expanded', o); });
+  n.addEventListener('click', function (e) { if (e.target.closest('a')) { n.classList.remove('open'); b.setAttribute('aria-expanded', false); } });
+  document.getElementById('leadForm').addEventListener('submit', function (e) { e.preventDefault(); document.getElementById('ok').hidden = false; });
+})();
+</script>
+</body>
+</html>
